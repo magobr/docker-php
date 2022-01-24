@@ -13,17 +13,17 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     zip \
-    unzip \
-    php-xdebug
+    unzip 
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd mysqli zip
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Instalação e configuração do XDebug
-RUN yes | pecl install xdebug-3.0.2 \
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_handler=dbgp" >>  /usr/local/etc/php/conf.d/xdebug.ini \

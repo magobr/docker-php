@@ -2,13 +2,15 @@ version: "3.7"
 services:
   mysqldb:
     container_name: mysql_db
-    image: mysql:latest
+    image: mysql:5.7
     ports:
       - '3808:3808'
     environment:
       - MYSQL_ROOT_PASSWORD=develop
       - MYSQL_DATABASE=app
       - MYSQL_TCP_PORT=3808
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
 
   app:
     build:
@@ -17,7 +19,6 @@ services:
         uid: 1000
       context: ./
       dockerfile: docker/Dockerfile
-    image: 'php:8.1.2-fpm'
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -46,7 +47,7 @@ services:
       - mysqldb
 
   nginx:
-    image: nginx:alpine
+    image: nginx:latest
     container_name: docker-nginx
     restart: unless-stopped
     expose:
