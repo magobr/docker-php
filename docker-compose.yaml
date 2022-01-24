@@ -2,21 +2,22 @@ version: "3.7"
 services:
   mysqldb:
     container_name: mysql_db
-    image: mysql:5.7
+    image: mysql:latest
     ports:
-      - '3306:3306'
+      - '3808:3808'
     environment:
-      - MYSQL_ROOT_PASSWORD=root 
+      - MYSQL_ROOT_PASSWORD=develop
       - MYSQL_DATABASE=app
+      - MYSQL_TCP_PORT=3808
 
   app:
     build:
       args:
-        user: estadao
+        user: thiago
         uid: 1000
       context: ./
       dockerfile: docker/Dockerfile
-    image: estadao-test-dev
+    image: 'php:8.1.2-fpm'
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -26,7 +27,7 @@ services:
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
-      - ./:/var/www
+      - ./src:/var/www
     environment:
       APPLICATION_ENV: development
       XDEBUG_INSTALL: 1
@@ -53,7 +54,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./:/var/www
+      - ./src:/var/www
       - ./docker/nginx:/etc/nginx/conf.d/
     depends_on:
       - app

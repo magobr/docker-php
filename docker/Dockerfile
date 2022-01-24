@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.1.2-fpm
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     zip \
-    unzip
+    unzip \
+    php-xdebug
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
