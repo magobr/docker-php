@@ -25,6 +25,7 @@ services:
       retries: 3
       start_period: 30s
     container_name: php-docker
+    image: php:7.4-fpm
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
@@ -59,5 +60,3 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d/
     depends_on:
       - app
-
-  
