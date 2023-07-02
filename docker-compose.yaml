@@ -29,7 +29,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
-      - ./src:/var/www
+      - ${VOLUME}:/var/www
+      - ./config/php.ini:/usr/local/etc/php/php.ini
     environment:
       APPLICATION_ENV: development
       XDEBUG_INSTALL: 1
@@ -56,7 +57,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./src:/var/www
+      - ${VOLUME}:/var/www
       - ./docker/nginx:/etc/nginx/conf.d/
     depends_on:
       - app
