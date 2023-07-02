@@ -12,6 +12,8 @@ O container está configurado para executar o php a nível de desenvolvimento, c
 ### Estrutura
 - \docker
     - Dockerfile
+    - \config
+        - php.ini
     - \nginx
         - defaut.conf
         - host.cert
@@ -19,7 +21,12 @@ O container está configurado para executar o php a nível de desenvolvimento, c
 - \src
     - index.php
 
-A pasta **src** é onde os arquivos do projeto php devem estar.
+### Configuração de Volume
+Crie um arquivo **.env** na raiz do projeto. E as seguintes variaveis serão usados:
+
+| **VARIAVEL** | **USO** | **EXEMPLO** |
+|---|---|---|
+|VOLUME |Define o volume do projeto, aponte o path do padrão projeto| /home/usuario/Documentos/Projetos/meu-site |
 
 ### Como executar
 1. Para executar é nescessário que tenha o **Docker** e **Docker compose** instalados
