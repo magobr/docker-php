@@ -4,7 +4,7 @@ ARG user
 ARG uid
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     git \
     curl \
     libpng-dev \
@@ -24,7 +24,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN pecl install xdebug-3.0.1
 
 # Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
